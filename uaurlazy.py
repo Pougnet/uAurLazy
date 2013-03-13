@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 
 import sys
 import os
@@ -17,5 +17,4 @@ print "Building and installaing %s" % sys.argv[1]
 subprocess.call(["makepkg", "-sic"])
 
 print "Cleaning up"
-packagefiles = sys.argv[1] + '*'
-subprocess.call(["rm", packagefiles, "PKGBUILD"])
+subprocess.call(["rm", "PKGBUILD"])
