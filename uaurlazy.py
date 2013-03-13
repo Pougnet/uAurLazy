@@ -13,17 +13,24 @@ if sys.argv[1] == "help":
 elif sys.argv[1] == "install":
 	url = "https://aur.archlinux.org/packages/" + sys.argv[2][0] + sys.argv[2][1] + "/" + sys.argv[2] + "/PKGBUILD"
 
-	print "Changing directory to /tmp for build process"
-	os.chdir("/tmp/")
+	httpstatus = urllib.urlopen(url).getcode()	
 
-	print "Downloading %s from %s" % (sys.argv[2], url)
-	urllib.urlretrieve(url, "PKGBUILD")
+	if httpstatus == 404:
+		print "Package not found"
+	elif httpstatus == 500:
+		print "Server is down, try again later"
+	else:
+		print "Changing directory to /tmp for build process"
+		os.chdir("/tmp/")
 
-	print "Building and installaing %s" % sys.argv[2]
-	subprocess.call(["makepkg", "-sic"])
+		print "Downloading %s from %s" % (sys.argv[2], url)
+		urllib.urlretrieve(url, "PKGBUILD")
 
-	print "Cleaning up"
-	subprocess.call(["rm", "PKGBUILD"])
+		print "Building and installaing %s" % sys.argv[2]
+		subprocess.call(["makepkg", "-sic"])
+
+		print "Cleaning up"
+		subprocess.call(["rm", "PKGBUILD"])
 else:
 	print "Invalid option, for usage please enter 'uaurlazy help'"
 	os.sysexit()
