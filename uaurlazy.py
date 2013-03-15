@@ -26,7 +26,7 @@ elif sys.argv[1] == "install":
 		print "Downloading %s from %s" % (sys.argv[2], url)
 		urllib.urlretrieve(url, "PKGBUILD")
 
-		print "Building and installaing %s" % sys.argv[2]
+		print "Building and installing %s" % sys.argv[2]
 		subprocess.call(["makepkg", "-sic"])
 
 		print "Cleaning up"
