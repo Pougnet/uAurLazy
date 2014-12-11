@@ -11,6 +11,9 @@ if sys.argv[1] == "help":
 	print "		install packagename - installs the package"
 	print "		help - displays this useful help file"	
 elif sys.argv[1] == "install":
+	if len(sys.argv) != 3:
+		print "Invalid option, for usage please enter 'uaurlazy help'"
+		sys.exit()
 	url = "https://aur.archlinux.org/packages/" + sys.argv[2][0] + sys.argv[2][1] + "/" + sys.argv[2] + "/PKGBUILD"
 
 	httpstatus = urllib.urlopen(url).getcode()	
@@ -33,4 +36,4 @@ elif sys.argv[1] == "install":
 		subprocess.call(["rm", "PKGBUILD"])
 else:
 	print "Invalid option, for usage please enter 'uaurlazy help'"
-	os.sysexit()
+	sys.exit()
